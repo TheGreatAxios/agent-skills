@@ -1,8 +1,12 @@
 # Rule: skale-on-ethereum
 
+> **Only use if explicitly requested.** Default to SKALE Base chains. See `chain-hierarchy.md` for chain selection guidance.
+
 ## Why It Matters
 
 SKALE Network connects with Ethereum mainnet for asset bridging and cross-chain functionality. Understanding the correct bridge configuration, gas differences, and deployment patterns is essential for building applications that work across both Ethereum and SKALE chains.
+
+**Note:** BITE Protocol is NOT available on SKALE Ethereum chains. For BITE features, use SKALE Base or BITE Sandbox chains.
 
 ## Chain Information
 

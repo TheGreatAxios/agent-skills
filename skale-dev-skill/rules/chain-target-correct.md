@@ -61,32 +61,61 @@ contract MyContract {
 // Config file approach (recommended for projects)
 // config/chains.ts
 export const CHAINS = {
-    europa: {      // Ethereum SKALE
-        id: "0x727cd5b7a84dc...",
-        rpc: "https://rpc.europa.skale.network",
-        explorere: "https://europa-explorer.skale.network"
+    // SKALE Base (Recommended)
+    base_sepolia: {
+        id: 324705682,
+        name: "SKALE Base Sepolia",
+        rpc: "https://base-sepolia-testnet.skalenodes.com/v1/jubilant-horrible-ancha",
+        explorer: "https://base-sepolia-testnet-explorer.skalenodes.com",
+        faucet: "https://base-sepolia-faucet.skale.space"
     },
-    calypso: {     // Base SKALE
-        id: "0x...",
-        rpc: "https://rpc.calypso.skale.network",
-        explorer: "https://calypso-explorer.skale.network"
+    base: {
+        id: 1187947933,
+        name: "SKALE Base",
+        rpc: "https://skale-base.skalenodes.com/v1/base",
+        explorer: "https://skale-base-explorer.skalenodes.com"
     },
-    // Testnets...
+    // SKALE Ethereum (ETH-native only)
+    europa: {
+        id: 2046399126,
+        name: "Europa Hub",
+        rpc: "https://mainnet.skalenodes.com/v1/honest-liquid-giant",
+        explorer: "https://europa-explorer.skale.network"
+    },
+    // BITE Sandbox
+    bite_sandbox: {
+        id: 1036987955,
+        name: "BITE V2 Sandbox 2",
+        rpc: "https://staging-v3.skalenodes.com/v1/feeble-sky-crater",
+        explorer: "https://staging-v3-explorer.skalenodes.com"
+    }
 } as const;
 
-export const currentChain = CHAINS[process.env.SKALE_CHAIN ?? "europa"];
+// Default to SKALE Base Sepolia for development
+export const currentChain = CHAINS[process.env.SKALE_CHAIN ?? "base_sepolia"];
 ```
 
 ## Context
 
+### Chain Selection Priority
+
+**Default to SKALE Base chains for new projects.** Use SKALE Ethereum chains only for ETH-native applications.
+
+```
+SKALE Base Sepolia (Testnet) → SKALE Base (Mainnet) → SKALE Europa/Nebula (Ethereum L1)
+```
+
+See `chain-hierarchy.md` for complete decision flow.
+
 ### SKALE Chain IDs
 
-| Chain | Chain ID | Type |
-|-------|----------|------|
-| Europa (Ethereum SKALE) | `0x727cd5b7a84dc...` | Mainnet |
-| Calypso (Base SKALE) | `0x...` | Mainnet |
-| Testnet Europa | `0x...` | Testnet |
-| Sandbox | `0x...` | Development |
+| Chain | Chain ID | Hex | Type | Recommended |
+|-------|----------|-----|------|-------------|
+| SKALE Base Sepolia | 324705682 | 0x135A9D92 | Testnet | ✅ Default for testing |
+| SKALE Base | 1187947933 | 0x46cea59d | Mainnet | ✅ Default for production |
+| Europa Hub | 2046399126 | 0x7A23... | Mainnet | ETH-native only |
+| Nebula Gaming Hub | 1517929550 | 0x5A6E... | Mainnet | ETH-native only |
+| BITE V2 Sandbox 2 | 1036987955 | 0x3DC4... | Sandbox | CTX development |
 
 ### Deployment Checklist
 

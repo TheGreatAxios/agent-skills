@@ -37,6 +37,19 @@ Reference these guidelines when:
 
 ## Quick Reference
 
+### 0. Chain Selection Priority (CRITICAL)
+
+**Default to SKALE Base chains.** Use SKALE Ethereum only when explicitly required.
+
+| Priority | Chain | Use Case |
+|----------|-------|----------|
+| 1 | SKALE Base Sepolia | Testing (default) |
+| 2 | SKALE Base | Production (default) |
+| 3 | BITE V2 Sandbox 2 | BITE Phase II (CTX) only |
+| 4 | SKALE Ethereum | ETH-native apps (explicit request only) |
+
+See `chain-hierarchy.md` for decision flow.
+
 ### 1. Chain Selection (CRITICAL)
 
 - `chain-target-correct` - Use correct chain: Mainnet/Testnet/Sandbox, Europa/Calypso
@@ -83,8 +96,9 @@ Reference these guidelines when:
 
 ### 9. Chain-Specific Guides (MEDIUM)
 
-- `skale-on-base` - SKALE Base chain configuration and usage
-- `skale-on-ethereum` - Ethereum↔SKALE bridge integration
+- `chain-hierarchy` - Chain selection priority and decision flow
+- `skale-on-base` - SKALE Base chain (recommended for most apps)
+- `skale-on-ethereum` - SKALE Ethereum chains (ETH-native only)
 
 ## How to Work
 
