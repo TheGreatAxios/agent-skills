@@ -266,6 +266,13 @@ For detailed scheme-specific implementation, see the reference files:
 
 For facilitator API examples and discovery API schemas, see `reference/facilitator-api.md`.
 
+For x402 extension specifications, see the extension reference files:
+- `reference/extension-bazaar.md` — Resource discovery and cataloging
+- `reference/extension-payment-identifier.md` — Idempotency keys for deduplication
+- `reference/extension-sign-in-with-x.md` — Wallet-based authentication (CAIP-122/SIWE)
+- `reference/extension-eip2612-gas-sponsoring.md` — Gasless EIP-2612 permit flow
+- `reference/extension-erc20-gas-sponsoring.md` — Gasless ERC-20 approval flow
+
 ## Transport Support
 
 x402 is transport-agnostic. Current transports:

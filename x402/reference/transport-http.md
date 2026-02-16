@@ -1,6 +1,6 @@
 # Transport: HTTP
 
-x402 payment flows over standard HTTP/HTTPS. The original x402 transport, using HTTP status codes and headers.
+x402 payment flows over standard HTTP/HTTPS using the HTTP 402 "Payment Required" status code and custom headers. This is the original x402 transport.
 
 ## Headers Summary
 
@@ -14,7 +14,10 @@ All header values are **base64-encoded JSON**.
 
 ## Payment Required Signaling
 
-Server responds with HTTP **402 Payment Required** and `PAYMENT-REQUIRED` header.
+The server indicates payment is required using the HTTP **402 Payment Required** status code.
+
+**Mechanism**: HTTP 402 status code with JSON response body and `PAYMENT-REQUIRED` header
+**Data Format**: `PaymentRequirementsResponse` schema in `PAYMENT-REQUIRED` header (base64-encoded)
 
 ```http
 HTTP/1.1 402 Payment Required
@@ -22,7 +25,8 @@ Content-Type: application/json
 PAYMENT-REQUIRED: eyJ4NDAyVmVyc2lvbiI6MiwiZXJyb3IiOiJQQVlNRU5ULVNJR05BVFVSRSBoZWFkZXIgaXMgcmVxdWlyZWQiLCJyZXNvdXJjZSI6eyJ1cmwiOiJodHRwczovL2FwaS5leGFtcGxlLmNvbS9wcmVtaXVtLWRhdGEiLCJkZXNjcmlwdGlvbiI6IkFjY2VzcyB0byBwcmVtaXVtIG1hcmtldCBkYXRhIiwibWltZVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIn0sImFjY2VwdHMiOlt7InNjaGVtZSI6ImV4YWN0IiwibmV0d29yayI6ImVpcDE1NTo4NDUzMiIsImFtb3VudCI6IjEwMDAwIiwiYXNzZXQiOiIweDAzNkNiRDUzODQyYzU0MjY2MzRlNzkyOTU0MWVDMjMxOGYzZENGN2UiLCJwYXlUbyI6IjB4MjA5NjkzQmM2YWZjMEM1MzI4YkEzNkZhRjAzQzUxNEVGMzEyMjg3QyIsIm1heFRpbWVvdXRTZWNvbmRzIjo2MCwiZXh0cmEiOnsibmFtZSI6IlVTREMiLCJ2ZXJzaW9uIjoiMiJ9fV19
 
 {
-  "error": "Payment required"
+  "x402Version": 2,
+  "error": "Payment required to access this resource"
 }
 ```
 
@@ -45,7 +49,10 @@ The `PAYMENT-REQUIRED` header decodes to:
       "asset": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
       "payTo": "0x209693Bc6afc0C5328bA36FaF03C514EF312287C",
       "maxTimeoutSeconds": 60,
-      "extra": { "name": "USDC", "version": "2" }
+      "extra": {
+        "name": "USDC",
+        "version": "2"
+      }
     }
   ]
 }
@@ -53,20 +60,23 @@ The `PAYMENT-REQUIRED` header decodes to:
 
 ## Payment Payload Transmission
 
-Client sends payment via `PAYMENT-SIGNATURE` header (base64-encoded `PaymentPayload`).
+Clients send payment data using the `PAYMENT-SIGNATURE` HTTP header.
+
+**Mechanism**: `PAYMENT-SIGNATURE` header containing base64-encoded JSON
+**Data Format**: Base64-encoded `PaymentPayload` schema
 
 ```http
 POST /premium-data HTTP/1.1
 Host: api.example.com
 Content-Type: application/json
-PAYMENT-SIGNATURE: eyJ4NDAyVmVyc2lvbiI6MiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cHM6Ly...
+PAYMENT-SIGNATURE: eyJ4NDAyVmVyc2lvbiI6MiwicmVzb3VyY2UiOnsidXJsIjoiaHR0cHM6Ly9hcGkuZXhhbXBsZS5jb20vcHJlbWl1bS1kYXRhIiwiZGVzY3JpcHRpb24iOiJBY2Nlc3MgdG8gcHJlbWl1bSBtYXJrZXQgZGF0YSIsIm1pbWVUeXBlIjoiYXBwbGljYXRpb24vanNvbiJ9LCJhY2NlcHRlZCI6eyJzY2hlbWUiOiJleGFjdCIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJhbW91bnQiOiIxMDAwMCIsImFzc2V0IjoiMHgwMzZDYkQ1Mzg0MmM1NDI2NjM0ZTc5Mjk1NDFlQzIzMThmM2RDRjdlIiwicGF5VG8iOiIweDIwOTY5M0JjNmFmYzBDNTMyOGJBMzZGYUYwM0M1MTRFRjMxMjI4N0MiLCJtYXhUaW1lb3V0U2Vjb25kcyI6NjAsImV4dHJhIjp7Im5hbWUiOiJVU0RDIiwidmVyc2lvbiI6IjIifX0sInBheWxvYWQiOnsic2lnbmF0dXJlIjoiMHgyZDZhNzU4OGQ2YWNjYTUwNWNiZjBkOWE0YTIyN2UwYzUyYzZjMzQwMDhjOGU4OTg2YTEyODMyNTk3NjQxNzM2MDhhMmNlNjQ5NjY0MmUzNzdkNmRhOGRiYmY1ODM2ZTliZDE1MDkyZjllY2FiMDVkZWQzZDYyOTNhZjE0OGI1NzFjIiwiYXV0aG9yaXphdGlvbiI6eyJmcm9tIjoiMHg4NTdiMDY1MTlFOTFlM0E1NDUzODc5MWJEYmIwRTIyMzczZTM2YjY2IiwidG8iOiIweDIwOTY5M0JjNmFmYzBDNTMyOGJBMzZGYUYwM0M1MTRFRjMxMjI4N0MiLCJ2YWx1ZSI6IjEwMDAwIiwidmFsaWRBZnRlciI6IjE3NDA2NzIwODkiLCJ2YWxpZEJlZm9yZSI6IjE3NDA2NzIxNTQiLCJub25jZSI6IjB4ZjM3NDY2MTNjMmQ5MjBiNWZkYWJjMDg1NmYyYWViMmQ0Zjg4ZWU2MDM3YjhjYzVkMDRhNzFhNDQ2MmYxMzQ4MCJ9fX0=
 
 {
   "query": "latest market data"
 }
 ```
 
-The header decodes to a full `PaymentPayload`:
+The base64 payload decodes to:
 
 ```json
 {
@@ -86,7 +96,7 @@ The header decodes to a full `PaymentPayload`:
     "extra": { "name": "USDC", "version": "2" }
   },
   "payload": {
-    "signature": "0x2d6a7588d6acca505cbf0d9a4a227e0c52c6c34...",
+    "signature": "0x2d6a7588d6acca505cbf0d9a4a227e0c52c6c34008c8e8986a1283259764173608a2ce6496642e377d6da8dbbf5836e9bd15092f9ecab05ded3d6293af148b571c",
     "authorization": {
       "from": "0x857b06519E91e3A54538791bDbb0E22373e36b66",
       "to": "0x209693Bc6afc0C5328bA36FaF03C514EF312287C",
@@ -101,14 +111,17 @@ The header decodes to a full `PaymentPayload`:
 
 ## Settlement Response Delivery
 
-Server returns settlement result in `PAYMENT-RESPONSE` header (base64-encoded `SettlementResponse`).
+Servers communicate payment settlement results using the `PAYMENT-RESPONSE` header.
 
-### Success
+**Mechanism**: `PAYMENT-RESPONSE` header containing base64-encoded JSON
+**Data Format**: Base64-encoded `SettlementResponse` schema
+
+### Success Response
 
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
-PAYMENT-RESPONSE: eyJzdWNjZXNzIjp0cnVlLCJ0cmFuc2FjdGlvbiI6IjB4MTIzNDU2Nzg5MGFiY2RlZi4uLiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9
+PAYMENT-RESPONSE: eyJzdWNjZXNzIjp0cnVlLCJ0cmFuc2FjdGlvbiI6IjB4MTIzNDU2Nzg5MGFiY2RlZjEyMzQ1Njc4OTBhYmNkZWYxMjM0NTY3ODkwYWJjZGVmMTIzNDU2Nzg5MGFiY2RlZiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9
 
 {
   "data": "premium market data response",
@@ -116,40 +129,78 @@ PAYMENT-RESPONSE: eyJzdWNjZXNzIjp0cnVlLCJ0cmFuc2FjdGlvbiI6IjB4MTIzNDU2Nzg5MGFiY2
 }
 ```
 
-Decodes to:
+The base64 response header decodes to:
 
 ```json
 {
   "success": true,
-  "transaction": "0x1234567890abcdef...",
+  "transaction": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
   "network": "eip155:84532",
   "payer": "0x857b06519E91e3A54538791bDbb0E22373e36b66"
 }
 ```
 
-### Failure
+### Failure Response
 
 ```http
 HTTP/1.1 402 Payment Required
 Content-Type: application/json
-PAYMENT-RESPONSE: eyJzdWNjZXNzIjpmYWxzZSwiZXJyb3JSZWFzb24iOiJpbnN1ZmZpY2llbnRfZnVuZHMiLC4uLn0=
+PAYMENT-RESPONSE: eyJzdWNjZXNzIjpmYWxzZSwiZXJyb3JSZWFzb24iOiJpbnN1ZmZpY2llbnRfZnVuZHMiLCJ0cmFuc2FjdGlvbiI6IiIsIm5ldHdvcmsiOiJlaXAxNTU6ODQ1MzIiLCJwYXllciI6IjB4ODU3YjA2NTE5RTkxZTNBNTQ1Mzg3OTFiRGJiMEUyMjM3M2UzNmI2NiJ9
 
 {
   "x402Version": 2,
   "error": "Payment failed: insufficient funds",
-  "accepts": [...]
+  "accepts": [
+    /* original payment requirements */
+  ]
 }
 ```
 
-## HTTP Status Code Mapping
+## Error Handling
+
+HTTP transport maps x402 errors to standard HTTP status codes:
 
 | x402 Error | HTTP Status | Description |
 |------------|-------------|-------------|
-| Payment Required | 402 | Payment needed |
-| Invalid Payment | 400 | Malformed payload/requirements |
-| Payment Failed | 402 | Verification or settlement failed |
-| Server Error | 500 | Internal error during processing |
-| Success | 200 | Payment verified and settled |
+| Payment Required | 402 | Payment needed to access resource |
+| Invalid Payment | 400 | Malformed payment payload or requirements |
+| Payment Failed | 402 | Payment verification or settlement failed |
+| Server Error | 500 | Internal server error during payment processing |
+| Success | 200 | Payment verified and settled successfully |
+
+### Error Response Format
+
+```json
+{
+  "x402Version": 2,
+  "error": "Human-readable error message",
+  "accepts": [
+    /* payment requirements */
+  ]
+}
+```
+
+## Full Flow Example
+
+```http
+# 1. Client requests protected resource
+GET /api/premium-data HTTP/1.1
+Host: api.example.com
+
+# 2. Server responds with payment requirement
+HTTP/1.1 402 Payment Required
+PAYMENT-REQUIRED: <base64-encoded PaymentRequired>
+
+# 3. Client retries with payment
+GET /api/premium-data HTTP/1.1
+Host: api.example.com
+PAYMENT-SIGNATURE: <base64-encoded PaymentPayload>
+
+# 4. Server settles payment and returns resource
+HTTP/1.1 200 OK
+PAYMENT-RESPONSE: <base64-encoded SettlementResponse>
+{ "data": "premium content" }
+```
 
 ## Key Characteristics
 
@@ -157,3 +208,11 @@ PAYMENT-RESPONSE: eyJzdWNjZXNzIjpmYWxzZSwiZXJyb3JSZWFzb24iOiJpbnN1ZmZpY2llbnRfZn
 - Resource URLs use standard `https://` scheme
 - Leverages existing HTTP 402 status code
 - Request body is preserved for the actual resource request (payment is in headers)
+- Stateless — each request is independent
+
+## References
+
+- [Core x402 Specification](../x402-specification.md)
+- [HTTP/1.1 Specification (RFC 7231)](https://tools.ietf.org/html/rfc7231)
+- [HTTP 402 Status Code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402)
+- [Coinbase x402 HTTP Transport](https://github.com/coinbase/x402/blob/master/specs/transports/http.md)
