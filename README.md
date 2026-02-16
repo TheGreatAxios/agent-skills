@@ -20,6 +20,10 @@ Search and reference SKALE documentation. Use when looking up API references, ch
 
 TypeScript type validation and runtime schema library. Use for type definitions, validation, scopes, generics, pattern matching, JSON Schema conversion, and Attest testing.
 
+### x402
+
+x402 protocol v2 for internet-native payments. Use when building x402 servers, clients, facilitators, or integrating x402 payment flows over HTTP, MCP, or A2A transports.
+
 ## Installation
 
 Install all skills:
@@ -42,6 +46,9 @@ npx skills add thegreataxios/agent-skills --skill skale-docs
 
 # ArkType validation
 npx skills add thegreataxios/agent-skills --skill arktype
+
+# x402 payments
+npx skills add thegreataxios/agent-skills --skill x402
 ```
 
 ## License

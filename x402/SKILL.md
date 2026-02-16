@@ -258,7 +258,13 @@ Returns paginated list of x402-enabled resources with `accepts` arrays, `lastUpd
 
 See https://github.com/coinbase/x402 for the canonical implementation.
 
-For detailed facilitator API examples, discovery API response schemas, and SVM-specific details, read `reference/facilitator-api.md` and `reference/schemes.md` in this skill directory.
+For detailed scheme-specific implementation, see the reference files:
+- `reference/exact-core.md` — Core exact scheme specification
+- `reference/exact-evm.md` — EVM implementation (EIP-3009)
+- `reference/exact-svm.md` — Solana implementation
+- `reference/exact-sui.md` — Sui implementation
+
+For facilitator API examples and discovery API schemas, see `reference/facilitator-api.md`.
 
 ## Transport Support
 
