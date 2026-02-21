@@ -4,25 +4,25 @@ The following are a collection of skills, compatible with the [Agent Skills](htt
 
 ## Available Skills
 
-### skale-dev-skill
+### skale
 
-SKALE Network Developer best practices and guidance to speed up development and deployment of Solidity smart contracts, privacy applications, and agentic applications on SKALE.
+SKALE Network development guidelines and documentation access. Use for building dApps, smart contracts, cross-chain solutions, and looking up SKALE documentation.
 
-### bite-dev-skill
+### bite
 
 BITE Protocol development for encrypted and conditional transactions on SKALE. Use for privacy features, threshold encryption, CTX, and Rock-Paper-Scissors style games.
 
-### skale-docs-skill
+### zod
 
-Search and reference SKALE documentation. Use when looking up API references, chain configurations, or BITE Protocol details.
+TypeScript-first schema validation with Zod v4. Use for schemas, type inference, validation, transformations, and JSON Schema generation.
 
-### arktype-skill
+### arktype
 
-TypeScript type validation and runtime schema library. Use for type definitions, validation, scopes, generics, pattern matching, JSON Schema conversion, and Attest testing.
+TypeScript type validation with ArkType, ArkEnv, and ArkRegex. Use for schemas, environment variables, and type-safe regex.
 
 ### x402
 
-x402 protocol v2 for internet-native payments. Use when building x402 servers, clients, facilitators, or integrating x402 payment flows over HTTP, MCP, or A2A transports.
+x402 protocol v2 for internet-native payments. Use when building x402 servers, clients, facilitators, or integrating x402 payment flows.
 
 ## Installation
 
@@ -36,13 +36,13 @@ Or install specific skills:
 
 ```shell
 # SKALE development
-npx skills add thegreataxios/agent-skills --skill skale-dev
+npx skills add thegreataxios/agent-skills --skill skale
 
 # BITE Protocol
-npx skills add thegreataxios/agent-skills --skill bite-dev
+npx skills add thegreataxios/agent-skills --skill bite
 
-# Documentation search
-npx skills add thegreataxios/agent-skills --skill skale-docs
+# Zod validation
+npx skills add thegreataxios/agent-skills --skill zod
 
 # ArkType validation
 npx skills add thegreataxios/agent-skills --skill arktype
