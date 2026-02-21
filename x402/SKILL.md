@@ -1,6 +1,11 @@
 ---
 name: x402
 description: "x402 protocol v2 for internet-native payments. Use when building x402 servers, clients, facilitators, or integrating x402 payment flows. Triggers: x402, payment required, 402, paywall, micropayment, EIP-3009, payment protocol, facilitator, PaymentPayload, PaymentRequirements."
+license: MIT
+metadata:
+  author: thegreataxios
+  version: "1.0.0"
+  x402_version: "2"
 ---
 
 # x402 Protocol v2

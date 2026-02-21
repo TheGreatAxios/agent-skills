@@ -1,0 +1,16 @@
+interface:
+  display_name: "BITE"
+  short_description: "Encrypted transactions on SKALE"
+  brand_color: "#EF4444"
+  default_prompt: "Implement BITE Protocol for"
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "skaleDocs"
+      description: "SKALE documentation"
+      transport: "https"
+      url: "https://docs.skale.space/llms.txt"

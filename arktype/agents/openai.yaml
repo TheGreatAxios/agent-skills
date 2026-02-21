@@ -1,0 +1,8 @@
+interface:
+  display_name: "ArkType"
+  short_description: "TypeScript runtime validation"
+  brand_color: "#F59E0B"
+  default_prompt: "Create an ArkType schema for"
+
+policy:
+  allow_implicit_invocation: true

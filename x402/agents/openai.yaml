@@ -1,0 +1,8 @@
+interface:
+  display_name: "x402 Protocol"
+  short_description: "Internet-native payments protocol"
+  brand_color: "#8B5CF6"
+  default_prompt: "Implement x402 payment flow for"
+
+policy:
+  allow_implicit_invocation: true
