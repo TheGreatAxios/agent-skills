@@ -1,0 +1,16 @@
+interface:
+  display_name: "SKALE"
+  short_description: "SKALE Network development and documentation"
+  brand_color: "#10B981"
+  default_prompt: "Build on SKALE:"
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "skaleDocs"
+      description: "SKALE documentation"
+      transport: "https"
+      url: "https://docs.skale.space/llms.txt"

@@ -1,6 +1,6 @@
 ---
-name: skale-dev
-description: SKALE Network development guidelines for building scalable dApps, smart contracts, and cross-chain solutions (February 2026). Use when building Solidity contracts, integrating SKALE into web/mobile apps, deploying to SKALE chains, or implementing privacy with BITE Protocol.
+name: skale
+description: SKALE Network development guidelines and documentation access. Use for building dApps, smart contracts, cross-chain solutions, and looking up SKALE documentation (February 2026). Triggers: SKALE, skale-dev, skale-docs, SKALE docs, BITE Protocol, Europa, Calypso, skale-bridge.
 license: MIT
 metadata:
   author: thegreataxios
@@ -23,6 +23,7 @@ Reference these guidelines when:
 - Working with x402 and on-chain agents
 - Implementing privacy features with BITE Protocol threshold encryption
 - Bridging assets via skale-bridge
+- Looking up SKALE documentation, API references, or chain configurations
 
 ## Development Areas
 
@@ -99,6 +100,26 @@ See `chain-hierarchy.md` for decision flow.
 - `chain-hierarchy` - Chain selection priority and decision flow
 - `skale-on-base` - SKALE Base chain (recommended for most apps)
 - `skale-on-ethereum` - SKALE Ethereum chains (ETH-native only)
+
+### 10. Documentation Access (MEDIUM)
+
+- `docs-search-patterns` - LLM-optimized documentation endpoints and search patterns
+
+## Documentation Endpoints
+
+SKALE provides LLM-optimized documentation endpoints:
+
+| URL | Size | Use Case |
+|-----|------|----------|
+| `https://docs.skale.space/llms.txt` | ~50KB | Index, navigation, key topics |
+| `https://docs.skale.space/llms-full.txt` | ~2MB | Complete documentation |
+| `https://docs.skale.space/llms-small.txt` | ~200KB | Compact version |
+
+All pages support `.md` suffix for raw markdown:
+```
+https://docs.skale.space/get-started/quick-start/skale-on-base.md
+https://docs.skale.space/developers/bite-protocol.md
+```
 
 ## How to Work
 

@@ -1,5 +1,5 @@
 ---
-name: bite-dev
+name: bite
 description: BITE Protocol development for encrypted and conditional transactions on SKALE. Use for privacy features, threshold encryption, CTX, and Rock-Paper-Scissors style games.
 license: MIT
 metadata:
@@ -79,5 +79,5 @@ Reference these guidelines when:
 
 ## Related Skills
 
-- `skale-dev` - General SKALE development
+- `skale` - General SKALE development
 - `solidity-dev-tips` - Solidity best practices
