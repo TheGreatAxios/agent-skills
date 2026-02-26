@@ -24,6 +24,10 @@ TypeScript type validation with ArkType, ArkEnv, and ArkRegex. Use for schemas, 
 
 x402 protocol v2 for internet-native payments. Use when building x402 servers, clients, facilitators, or integrating x402 payment flows.
 
+### arcjet-skill
+
+Comprehensive Arcjet docs/repo coverage with implementation guidance for Shield, rate limiting, bot protection, email validation, sensitive info, redaction, blueprints, and multi-runtime SDK integration.
+
 ## Installation
 
 Install all skills:
@@ -49,6 +53,9 @@ npx skills add thegreataxios/agent-skills --skill arktype
 
 # x402 payments
 npx skills add thegreataxios/agent-skills --skill x402
+
+# Arcjet security
+npx skills add thegreataxios/agent-skills --skill arcjet
 ```
 
 ## License

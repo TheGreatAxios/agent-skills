@@ -1,0 +1,4 @@
+interface:
+  display_name: "Arcjet Full Coverage"
+  short_description: "Navigate and implement Arcjet end to end."
+  default_prompt: "Use $arcjet to implement Arcjet security controls with framework-specific examples and rollout guidance."
