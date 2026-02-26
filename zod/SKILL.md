@@ -206,13 +206,26 @@ Reference this skill when:
 
 ### Codecs (v4)
 
-| Codec | Purpose |
-|-------|---------|
-| `z.codec.stringToNumber` | String to Number |
-| `z.codec.stringToInt` | String to Integer |
-| `z.codec.isoDatetimeToDate` | ISO to Date |
-| `z.codec.base64ToBytes` | Base64 to Bytes |
-| `z.codec.bytesToBase64` | Bytes to Base64 |
+Codecs are bi-directional transformations. You define them using `z.codec(inputSchema, outputSchema, { decode, encode })`:
+
+```typescript
+const stringToDate = z.codec(
+  z.iso.datetime(),  // input: ISO date string
+  z.date(),          // output: Date object
+  {
+    decode: (isoString) => new Date(isoString),
+    encode: (date) => date.toISOString()
+  }
+)
+
+// Forward: string → Date
+stringToDate.decode("2024-01-15T10:30:00.000Z") // => Date
+
+// Backward: Date → string  
+stringToDate.encode(new Date()) // => "2024-01-15T10:30:00.000Z"
+```
+
+Use `.decode()` for forward processing and `.encode()` for backward processing.
 
 ### v4 Features
 

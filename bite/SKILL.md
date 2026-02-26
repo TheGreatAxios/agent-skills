@@ -60,7 +60,7 @@ Reference these guidelines when:
 | Feature | Solidity | EVM |
 |---------|----------|-----|
 | Phase I | Any supported | Any |
-| Phase II (CTX) | ≥0.8.27 | istanbul |
+| Phase II (CTX) | ≥0.8.24 | shanghai |
 
 ## Resources
 
@@ -73,7 +73,7 @@ Reference these guidelines when:
 
 1. **Identify Phase**: Phase I (encrypted tx) or Phase II (CTX)?
 2. **Select Chain**: Based on phase requirements
-3. **Use Correct Compiler**: Istanbul for CTX
+3. **Use Correct Compiler**: Shanghai (≥0.8.24) for CTX
 4. **Implement**: Follow patterns in rules files
 5. **Test**: Use BITE Sandbox for CTX development
 

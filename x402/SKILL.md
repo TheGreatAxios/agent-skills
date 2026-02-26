@@ -48,7 +48,7 @@ x402 has three architectural layers:
     {
       "scheme": "exact",
       "network": "eip155:8453",
-      "amount": "10000",
+      "maxAmountRequired": "10000",
       "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
       "payTo": "0x...",
       "maxTimeoutSeconds": 60,
@@ -75,7 +75,7 @@ x402 has three architectural layers:
 |-------|------|-----|-------------|
 | `scheme` | string | ✓ | e.g. `"exact"` |
 | `network` | string | ✓ | CAIP-2 format, e.g. `"eip155:8453"` |
-| `amount` | string | ✓ | Atomic token units |
+| `maxAmountRequired` | string | ✓ | Maximum amount in atomic units |
 | `asset` | string | ✓ | Token contract address or ISO 4217 code |
 | `payTo` | string | ✓ | Recipient wallet address |
 | `maxTimeoutSeconds` | number | ✓ | Max time for payment completion |

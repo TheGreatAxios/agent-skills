@@ -155,7 +155,7 @@ https://docs.skale.space/developers/bite-protocol.md
 | Feature | Compiler Version | Notes |
 |---------|-----------------|-------|
 | Standard contracts | Shanghai or lower (≤ 0.8.24) | Recommended: 0.8.24 |
-| Conditional TX (CTX) | Istanbul (≤ 0.8.20) | CTX requires Istanbul compiler |
+| Conditional TX (CTX) | Istanbul (≤ 0.8.20) or Shanghai (≤ 0.8.24) | Verify requirements with SKALE team |
 | BITE Phase I | Any supported version | No special requirements |
 
 ## Foundry Deployment
