@@ -1,10 +1,10 @@
 ---
 name: skale
-description: SKALE Network development guidelines and documentation access. Use for building dApps, smart contracts, cross-chain solutions, and looking up SKALE documentation (February 2026). Triggers: SKALE, skale-dev, skale-docs, SKALE docs, BITE Protocol, Europa, Calypso, skale-bridge.
+description: "SKALE Network development guidelines and documentation access. Use for building dApps, smart contracts, cross-chain solutions, and looking up SKALE documentation (February 2026). Triggers: SKALE, skale-dev, skale-docs, SKALE docs, BITE Protocol, Europa, Calypso, skale-bridge."
 license: MIT
 metadata:
   author: thegreataxios
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # SKALE Network Development
